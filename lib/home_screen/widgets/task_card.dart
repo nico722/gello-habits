@@ -20,8 +20,8 @@ class TaskCard extends StatelessWidget {
               BoxShadow(
                 color: Colors.grey.withOpacity(0.9),
                 spreadRadius: 1,
-                blurRadius: 1,
-                offset: Offset(0, 1), // changes position of shadow
+                blurRadius: 3,
+                offset: Offset(2, 2), // changes position of shadow
               ),
             ],
           ),
@@ -57,7 +57,7 @@ class TaskCard extends StatelessWidget {
               Expanded(
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.white70,
+                    color: Colors.white,
                   ),
                   child: Material(
                     color: Colors.transparent,

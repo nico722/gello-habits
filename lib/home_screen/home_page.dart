@@ -29,16 +29,18 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Column(
         children: [
-          Flexible(
-            flex: 5,
+          Expanded(
+            flex: 1,
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 20, horizontal: 5),
               child: Center(
                 child: Row(
-                  mainAxisSize: MainAxisSize.max,
+                  mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
+                    Expanded(
+                      flex: 1,
+                      child: Column(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
@@ -60,10 +62,11 @@ class _HomePageState extends State<HomePage> {
                             label: "Experiencia",
                             percentage: 0.2,
                           ),
-                        ]),
-                    SizedBox.fromSize(
-                      size: Size(MediaQuery.of(context).size.width * 0.35,
-                          MediaQuery.of(context).size.width * 0.35),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
                       child: CharacterThumbnail(color: Colors.black),
                     ),
                   ],
@@ -72,7 +75,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           Expanded(
-            flex: 9,
+            flex: 2,
             child: PageView(
               controller: _pageController,
               onPageChanged: pageChanged,
@@ -104,6 +107,7 @@ class _HomePageState extends State<HomePage> {
         onPressed: () {},
       ),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.alarm), label: "Habitos"),
           BottomNavigationBarItem(
