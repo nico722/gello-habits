@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gellohabits/home_screen/widgets/character_thumbnail.dart';
+import 'package:gellohabits/home_screen/widgets/progress_bar.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -28,7 +29,7 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: [
           Flexible(
-            flex: 3,
+            flex: 5,
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 20, horizontal: 5),
               child: Center(
@@ -36,17 +37,32 @@ class _HomePageState extends State<HomePage> {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    Column(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          ProgressBar(
+                            color: Colors.red,
+                            icon: Icons.favorite_sharp,
+                            label: "Vida",
+                            percentage: 0.5,
+                          ),
+                          ProgressBar(
+                            color: Colors.green,
+                            icon: Icons.medical_services_sharp,
+                            label: "Salud",
+                            percentage: 0.8,
+                          ),
+                          ProgressBar(
+                            color: Colors.yellow,
+                            icon: Icons.star_rate_sharp,
+                            label: "Experiencia",
+                            percentage: 0.2,
+                          ),
+                        ]),
                     SizedBox.fromSize(
-                      size: Size(300, 10),
-                      child: LinearProgressIndicator(
-                        value: 0.3,
-                        backgroundColor: Colors.grey,
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
-                      ),
-                    ),
-                    SizedBox.fromSize(
-                      size: Size(60, 60),
-                      child: CharacterThumbnail(color: Colors.red),
+                      size: Size(MediaQuery.of(context).size.width * 0.35, MediaQuery.of(context).size.width * 0.35),
+                      child: CharacterThumbnail(color: Colors.black),
                     ),
                   ],
                 ),
@@ -54,7 +70,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           Expanded(
-            flex: 8,
+            flex: 9,
             child: PageView(
               controller: _pageController,
               onPageChanged: pageChanged,

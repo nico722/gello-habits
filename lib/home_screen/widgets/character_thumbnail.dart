@@ -8,7 +8,7 @@ class CharacterThumbnail extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: color,
+      child: Image(image: AssetImage('assets/characters/Base – Purple.png')),
     );
   }
 }
