@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gellohabits/home_screen/widgets/character_thumbnail.dart';
 import 'package:gellohabits/home_screen/widgets/progress_bar.dart';
+import 'package:gellohabits/home_screen/widgets/task_card.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -61,7 +62,8 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ]),
                     SizedBox.fromSize(
-                      size: Size(MediaQuery.of(context).size.width * 0.35, MediaQuery.of(context).size.width * 0.35),
+                      size: Size(MediaQuery.of(context).size.width * 0.35,
+                          MediaQuery.of(context).size.width * 0.35),
                       child: CharacterThumbnail(color: Colors.black),
                     ),
                   ],
@@ -76,7 +78,12 @@ class _HomePageState extends State<HomePage> {
               onPageChanged: pageChanged,
               children: <Widget>[
                 Container(
-                  color: Colors.yellow,
+                  color: Colors.white,
+                  child: ListView(
+                    children: [
+                      TaskCard(),
+                    ],
+                  ),
                 ),
                 Container(
                   color: Colors.purple,
