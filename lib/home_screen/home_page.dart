@@ -104,6 +104,7 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
+        mini: true,
         onPressed: () {},
       ),
       bottomNavigationBar: BottomNavigationBar(
