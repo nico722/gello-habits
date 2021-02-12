@@ -1,6 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gellohabits/home_screen/widgets/character_thumbnail.dart';
-import 'package:gellohabits/home_screen/widgets/progress_bar.dart';
+import 'package:gellohabits/home_screen/widgets/status_widget.dart';
 import 'package:gellohabits/home_screen/widgets/task_card.dart';
 
 class HomePage extends StatefulWidget {
@@ -11,6 +11,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _currentPage;
   PageController _pageController;
+  ScrollController _scrollController = ScrollController();
 
   _HomePageState() {
     _currentPage = 0;
@@ -27,80 +28,43 @@ class _HomePageState extends State<HomePage> {
           IconButton(icon: Icon(Icons.filter_list_sharp), onPressed: null)
         ],
       ),
-      body: Column(
-        children: [
-          Expanded(
-            flex: 1,
-            child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 5),
-              child: Center(
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          ProgressBar(
-                            color: Colors.red,
-                            icon: Icons.favorite_sharp,
-                            label: "Vida",
-                            percentage: 0.5,
-                          ),
-                          ProgressBar(
-                            color: Colors.green,
-                            icon: Icons.medical_services_sharp,
-                            label: "Salud",
-                            percentage: 0.8,
-                          ),
-                          ProgressBar(
-                            color: Colors.yellow,
-                            icon: Icons.star_rate_sharp,
-                            label: "Experiencia",
-                            percentage: 0.2,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: CharacterThumbnail(color: Colors.black),
-                    ),
-                  ],
-                ),
+      body: NestedScrollView(
+        controller: _scrollController,
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return [
+            SliverAppBar(
+              automaticallyImplyLeading: false,
+              forceElevated: innerBoxIsScrolled,
+              backgroundColor: Colors.white,
+              centerTitle: true,
+              expandedHeight: 180,
+              flexibleSpace: Status(),
+            ),
+          ];
+        },
+        body: PageView(
+          controller: _pageController,
+          onPageChanged: pageChanged,
+          children: <Widget>[
+            Container(
+              color: Colors.white,
+              child: ListView.builder(
+                itemCount: 50,
+                padding: EdgeInsets.only(bottom: 80),
+                itemBuilder: (context, i) => TaskCard(),
               ),
             ),
-          ),
-          Expanded(
-            flex: 2,
-            child: PageView(
-              controller: _pageController,
-              onPageChanged: pageChanged,
-              children: <Widget>[
-                Container(
-                  color: Colors.white,
-                  child: ListView(
-                    children: [
-                      TaskCard(),
-                    ],
-                  ),
-                ),
-                Container(
-                  color: Colors.purple,
-                ),
-                Container(
-                  color: Colors.red,
-                ),
-                Container(
-                  color: Colors.green,
-                ),
-              ],
+            Container(
+              color: Colors.purple,
             ),
-          ),
-        ],
+            Container(
+              color: Colors.red,
+            ),
+            Container(
+              color: Colors.green,
+            ),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
