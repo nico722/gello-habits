@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gellohabits/core/enums/task.enum.dart';
 import 'package:gellohabits/home_screen/widgets/status_widget.dart';
 import 'package:gellohabits/home_screen/widgets/task_card.dart';
+import 'package:gellohabits/services/task_service.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -12,6 +14,7 @@ class _HomePageState extends State<HomePage> {
   int _currentPage;
   PageController _pageController;
   ScrollController _scrollController = ScrollController();
+  final TaskService _taskService = TaskService(); // No tengo claro si esto seria un servicio o un controller para flutter
 
   _HomePageState() {
     _currentPage = 0;
@@ -48,17 +51,24 @@ class _HomePageState extends State<HomePage> {
           children: <Widget>[
             Container(
               color: Colors.white,
-              child: ListView.builder(
-                itemCount: 50,
+              child: ListView(
                 padding: EdgeInsets.only(bottom: 80),
-                itemBuilder: (context, i) => TaskCard(),
+                children: this._taskService.getUserTasksByType(TaskEnum.HABIT).map((e) => TaskCard(e)).toList(),
               ),
             ),
             Container(
-              color: Colors.purple,
+              color: Colors.white,
+              child: ListView(
+                padding: EdgeInsets.only(bottom: 80),
+                children: this._taskService.getUserTasksByType(TaskEnum.DAILY).map((e) => TaskCard(e)).toList(),
+              ),
             ),
             Container(
-              color: Colors.red,
+              color: Colors.white,
+              child: ListView(
+                padding: EdgeInsets.only(bottom: 80),
+                children: this._taskService.getUserTasksByType(TaskEnum.TODO).map((e) => TaskCard(e)).toList(),
+              ),
             ),
             Container(
               color: Colors.green,

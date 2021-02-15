@@ -1,7 +1,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gellohabits/core/entities/task.entity.dart';
+import 'package:gellohabits/core/enums/task.enum.dart';
 
 class TaskCard extends StatelessWidget {
+  TaskEntity task;
+  Color buttonColor;
+  bool disableAddButton = false;
+  bool disableSubstractButton = false;
+
+  TaskCard(this.task) {
+    switch (this.task.type) {
+      case TaskEnum.TODO:
+        this.buttonColor = Colors.blue;
+        break;
+      default:
+        this.buttonColor = Colors.white10;
+        this.disableAddButton = true;
+        this.disableSubstractButton = true;
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,25 +50,28 @@ class TaskCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Container(
-                color: Colors.blue,
-                child: Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                    onTap: () {
-                      debugPrint("add");
-                    },
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Icon(Icons.add, color: Colors.white),
-                          Icon(
-                            Icons.add_circle,
-                            color: Colors.blueGrey,
-                          ),
-                        ],
+              AbsorbPointer(
+                absorbing: this.disableAddButton,
+                child: Container(
+                  color: this.buttonColor,
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: () {
+                        debugPrint("add");
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Icon(Icons.add, color: Colors.white),
+                            Icon(
+                              Icons.add_circle,
+                              color: Colors.blueGrey,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -72,7 +95,7 @@ class TaskCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'task title',
+                              this.task.title,
                               style: TextStyle(
                                   color: Colors.black87,
                                   fontWeight: FontWeight.bold,
@@ -80,7 +103,7 @@ class TaskCard extends StatelessWidget {
                               overflow: TextOverflow.fade,
                             ),
                             Text(
-                              'Task description',
+                              this.task.description,
                               style: TextStyle(color: Colors.black54),
                               overflow: TextOverflow.fade,
                             ),
@@ -91,25 +114,28 @@ class TaskCard extends StatelessWidget {
                   ),
                 ),
               ),
-              Container(
-                color: Colors.blue,
-                child: Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                    onTap: () {
-                      debugPrint("remove");
-                    },
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Icon(Icons.remove, color: Colors.white),
-                          Icon(
-                            Icons.remove_circle,
-                            color: Colors.blueGrey,
-                          ),
-                        ],
+              AbsorbPointer(
+                absorbing: this.disableSubstractButton,
+                child: Container(
+                  color: this.buttonColor,
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: () {
+                        debugPrint("remove");
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Icon(Icons.remove, color: Colors.white),
+                            Icon(
+                              Icons.remove_circle,
+                              color: Colors.blueGrey,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
