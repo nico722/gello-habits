@@ -81,6 +81,28 @@ mixin _$PaginationStore on PaginationStoreBase, Store {
   }
 
   @override
+  dynamic pageChanged(int page) {
+    final _$actionInfo = _$PaginationStoreBaseActionController.startAction(
+        name: 'PaginationStoreBase.pageChanged');
+    try {
+      return super.pageChanged(page);
+    } finally {
+      _$PaginationStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic pageChanger(int page) {
+    final _$actionInfo = _$PaginationStoreBaseActionController.startAction(
+        name: 'PaginationStoreBase.pageChanger');
+    try {
+      return super.pageChanger(page);
+    } finally {
+      _$PaginationStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 currentPage: ${currentPage},

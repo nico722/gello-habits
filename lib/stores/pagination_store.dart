@@ -26,4 +26,16 @@ abstract class PaginationStoreBase with Store {
   setPageController(PageController value) {
     _pageController = value;
   }
+
+  @action
+  pageChanged(int page) {
+      _currentPage = page;
+  }
+
+  @action
+  pageChanger(int page) {
+      _pageController.animateToPage(page,
+          duration: Duration(milliseconds: 300), curve: Curves.ease);
+      _currentPage = page;
+  }
 }
