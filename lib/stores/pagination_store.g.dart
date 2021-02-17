@@ -55,6 +55,14 @@ mixin _$PaginationStore on PaginationStoreBase, Store {
     });
   }
 
+  final _$pageChangerAsyncAction =
+      AsyncAction('PaginationStoreBase.pageChanger');
+
+  @override
+  Future<dynamic> pageChanger(int page) {
+    return _$pageChangerAsyncAction.run(() => super.pageChanger(page));
+  }
+
   final _$PaginationStoreBaseActionController =
       ActionController(name: 'PaginationStoreBase');
 
@@ -86,17 +94,6 @@ mixin _$PaginationStore on PaginationStoreBase, Store {
         name: 'PaginationStoreBase.pageChanged');
     try {
       return super.pageChanged(page);
-    } finally {
-      _$PaginationStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic pageChanger(int page) {
-    final _$actionInfo = _$PaginationStoreBaseActionController.startAction(
-        name: 'PaginationStoreBase.pageChanger');
-    try {
-      return super.pageChanger(page);
     } finally {
       _$PaginationStoreBaseActionController.endAction(_$actionInfo);
     }
