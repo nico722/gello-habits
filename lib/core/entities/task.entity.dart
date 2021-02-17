@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:gellohabits/core/enums/task.enum.dart';
 
 class TaskEntity {
@@ -8,10 +9,14 @@ class TaskEntity {
   int failurePoints;
 
   TaskEntity({
+    @required
     this.type,
+    @required
     this.title,
     this.description,
+    @required
     this.successPoints,
+    @required
     this.failurePoints,
   });
 
