@@ -1,11 +1,19 @@
+import 'package:flutter/cupertino.dart';
 import 'package:gellohabits/core/entities/task.entity.dart';
 import 'package:gellohabits/core/enums/task.enum.dart';
+import 'package:gellohabits/stores/task_list_store.dart';
 
 class TaskService {
+  TaskListStore _taskListStore;
+
   // TODO: Remove dummy data and replace for persistent data
-  List<TaskEntity> allTasks;
-  TaskService() {
-    this.allTasks = [
+  TaskService({
+    @required
+    taskListStore
+  }) {
+    _taskListStore = taskListStore;
+
+    var allTasks = [
       TaskEnum.HABIT,
       TaskEnum.HABIT,
       TaskEnum.HABIT,
@@ -20,9 +28,10 @@ class TaskService {
             successPoints: 1,
             failurePoints: 1))
         .toList();
+    this._taskListStore.setTaskList(allTasks);
   }
 
-  List<TaskEntity> getUserTasksByType(TaskEnum taskType) {
-    return this.allTasks.where((e) => e.type == taskType).toList();
+  addTask(TaskEntity task) {
+    this._taskListStore.pushTask(task);
   }
 }

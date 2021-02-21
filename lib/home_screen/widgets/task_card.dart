@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gellohabits/core/entities/task.entity.dart';
 import 'package:gellohabits/core/enums/task.enum.dart';
+import 'package:gellohabits/home_screen/widgets/task_dialog.dart';
 
 class TaskCard extends StatelessWidget {
   TaskEntity task;
@@ -85,9 +86,12 @@ class TaskCard extends StatelessWidget {
                   child: Material(
                     color: Colors.transparent,
                     child: InkWell(
-                      onTap: () {
-                        debugPrint("card");
-                      },
+                      onTap: () => showDialog(
+                        context: context,
+                        builder: (_) => Dialog(
+                          child: TaskDialog(),
+                        ),
+                      ),
                       child: Container(
                         padding:
                             EdgeInsets.symmetric(vertical: 10, horizontal: 5),

@@ -1,17 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:gellohabits/core/entities/task.entity.dart';
 import 'package:gellohabits/core/enums/task.enum.dart';
 import 'package:gellohabits/home_screen/widgets/status_widget.dart';
 import 'package:gellohabits/home_screen/widgets/task_card.dart';
 import 'package:gellohabits/services/task_service.dart';
 import 'package:gellohabits/stores/pagination_store.dart';
+import 'package:gellohabits/stores/task_list_store.dart';
 
 class HomePage extends StatelessWidget {
   final PaginationStore paginationStore = PaginationStore();
   final ScrollController _scrollController = ScrollController();
-  final TaskService _taskService =
-      TaskService(); // No tengo claro si esto seria un servicio o un controller para flutter
+  final TaskListStore _taskListStore = TaskListStore();
+  TaskService _taskService;
+
+  HomePage() {
+    this._taskService = TaskService(taskListStore: this._taskListStore);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,35 +51,26 @@ class HomePage extends StatelessWidget {
               children: <Widget>[
                 Container(
                   color: Colors.white,
-                  child: ListView(
+                  child: ListView.builder(
                     padding: EdgeInsets.only(bottom: 80),
-                    children: this
-                        ._taskService
-                        .getUserTasksByType(TaskEnum.HABIT)
-                        .map((e) => TaskCard(e))
-                        .toList(),
+                    itemCount: this._taskListStore.getUserTaskByType(TaskEnum.HABIT).length,
+                    itemBuilder: (context, index) {
+                      return TaskCard(this._taskListStore.getUserTaskByType(TaskEnum.HABIT).elementAt(index));
+                    },
                   ),
                 ),
                 Container(
                   color: Colors.white,
                   child: ListView(
                     padding: EdgeInsets.only(bottom: 80),
-                    children: this
-                        ._taskService
-                        .getUserTasksByType(TaskEnum.DAILY)
-                        .map((e) => TaskCard(e))
-                        .toList(),
+                    children: [Text('ho')],
                   ),
                 ),
                 Container(
                   color: Colors.white,
                   child: ListView(
                     padding: EdgeInsets.only(bottom: 80),
-                    children: this
-                        ._taskService
-                        .getUserTasksByType(TaskEnum.TODO)
-                        .map((e) => TaskCard(e))
-                        .toList(),
+                    children: [Text('ho')],
                   ),
                 ),
                 Container(
@@ -87,7 +84,10 @@ class HomePage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         mini: true,
-        onPressed: () {},
+        onPressed: () {
+          debugPrint('add task button ${this._taskListStore.taskList.length}');
+          this._taskService.addTask(TaskEntity.build(type: TaskEnum.HABIT,description: 'some description', title: 'some title ${this._taskListStore.taskList.length}', failurePoints: 1, successPoints: 1));
+        },
       ),
       bottomNavigationBar: Observer(builder: (context) {
         return BottomNavigationBar(
