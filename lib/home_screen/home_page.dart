@@ -51,13 +51,7 @@ class HomePage extends StatelessWidget {
               children: <Widget>[
                 Container(
                   color: Colors.white,
-                  child: ListView.builder(
-                    padding: EdgeInsets.only(bottom: 80),
-                    itemCount: this._taskListStore.getUserTaskByType(TaskEnum.HABIT).length,
-                    itemBuilder: (context, index) {
-                      return TaskCard(this._taskListStore.getUserTaskByType(TaskEnum.HABIT).elementAt(index));
-                    },
-                  ),
+                  child: _taskListStore.taskListWidget,
                 ),
                 Container(
                   color: Colors.white,
@@ -85,8 +79,8 @@ class HomePage extends StatelessWidget {
         child: Icon(Icons.add),
         mini: true,
         onPressed: () {
-          debugPrint('add task button ${this._taskListStore.taskList.length}');
-          this._taskService.addTask(TaskEntity.build(type: TaskEnum.HABIT,description: 'some description', title: 'some title ${this._taskListStore.taskList.length}', failurePoints: 1, successPoints: 1));
+          debugPrint('add task button ${this._taskListStore.taskListEntities.length}');
+          this._taskService.addTask(TaskEntity.build(type: TaskEnum.HABIT,description: 'some description', title: 'some title ${this._taskListStore.taskListEntities.length}', failurePoints: 1, successPoints: 1));
         },
       ),
       bottomNavigationBar: Observer(builder: (context) {

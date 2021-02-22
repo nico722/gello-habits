@@ -9,26 +9,49 @@ part of 'task_list_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$TaskListStore on TaskListStoreBase, Store {
-  Computed<List<TaskEntity>> _$taskListComputed;
+  Computed<Widget> _$taskListWidgetComputed;
 
   @override
-  List<TaskEntity> get taskList =>
-      (_$taskListComputed ??= Computed<List<TaskEntity>>(() => super.taskList,
-              name: 'TaskListStoreBase.taskList'))
+  Widget get taskListWidget =>
+      (_$taskListWidgetComputed ??= Computed<Widget>(() => super.taskListWidget,
+              name: 'TaskListStoreBase.taskListWidget'))
           .value;
-
-  final _$_taskListAtom = Atom(name: 'TaskListStoreBase._taskList');
+  Computed<List<TaskEntity>> _$taskListEntitiesComputed;
 
   @override
-  List<TaskEntity> get _taskList {
-    _$_taskListAtom.reportRead();
-    return super._taskList;
+  List<TaskEntity> get taskListEntities => (_$taskListEntitiesComputed ??=
+          Computed<List<TaskEntity>>(() => super.taskListEntities,
+              name: 'TaskListStoreBase.taskListEntities'))
+      .value;
+
+  final _$_taskListWidgetAtom = Atom(name: 'TaskListStoreBase._taskListWidget');
+
+  @override
+  Widget get _taskListWidget {
+    _$_taskListWidgetAtom.reportRead();
+    return super._taskListWidget;
   }
 
   @override
-  set _taskList(List<TaskEntity> value) {
-    _$_taskListAtom.reportWrite(value, super._taskList, () {
-      super._taskList = value;
+  set _taskListWidget(Widget value) {
+    _$_taskListWidgetAtom.reportWrite(value, super._taskListWidget, () {
+      super._taskListWidget = value;
+    });
+  }
+
+  final _$_taskListEntitiesAtom =
+      Atom(name: 'TaskListStoreBase._taskListEntities');
+
+  @override
+  List<TaskEntity> get _taskListEntities {
+    _$_taskListEntitiesAtom.reportRead();
+    return super._taskListEntities;
+  }
+
+  @override
+  set _taskListEntities(List<TaskEntity> value) {
+    _$_taskListEntitiesAtom.reportWrite(value, super._taskListEntities, () {
+      super._taskListEntities = value;
     });
   }
 
@@ -36,22 +59,44 @@ mixin _$TaskListStore on TaskListStoreBase, Store {
       ActionController(name: 'TaskListStoreBase');
 
   @override
-  List<TaskEntity> getUserTaskByType(TaskEnum type) {
+  dynamic setTaskListWidget(Widget taskListWidget) {
     final _$actionInfo = _$TaskListStoreBaseActionController.startAction(
-        name: 'TaskListStoreBase.getUserTaskByType');
+        name: 'TaskListStoreBase.setTaskListWidget');
     try {
-      return super.getUserTaskByType(type);
+      return super.setTaskListWidget(taskListWidget);
     } finally {
       _$TaskListStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  dynamic setTaskList(List<TaskEntity> taskList) {
+  dynamic setTaskListEntities(List<TaskEntity> taskListEntities) {
     final _$actionInfo = _$TaskListStoreBaseActionController.startAction(
-        name: 'TaskListStoreBase.setTaskList');
+        name: 'TaskListStoreBase.setTaskListEntities');
     try {
-      return super.setTaskList(taskList);
+      return super.setTaskListEntities(taskListEntities);
+    } finally {
+      _$TaskListStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic buildTaskListWidget(TaskEnum type) {
+    final _$actionInfo = _$TaskListStoreBaseActionController.startAction(
+        name: 'TaskListStoreBase.buildTaskListWidget');
+    try {
+      return super.buildTaskListWidget(type);
+    } finally {
+      _$TaskListStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  List<TaskEntity> getUserTaskByType(TaskEnum type) {
+    final _$actionInfo = _$TaskListStoreBaseActionController.startAction(
+        name: 'TaskListStoreBase.getUserTaskByType');
+    try {
+      return super.getUserTaskByType(type);
     } finally {
       _$TaskListStoreBaseActionController.endAction(_$actionInfo);
     }
@@ -82,7 +127,8 @@ mixin _$TaskListStore on TaskListStoreBase, Store {
   @override
   String toString() {
     return '''
-taskList: ${taskList}
+taskListWidget: ${taskListWidget},
+taskListEntities: ${taskListEntities}
     ''';
   }
 }

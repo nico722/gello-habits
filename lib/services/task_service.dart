@@ -28,7 +28,7 @@ class TaskService {
             successPoints: 1,
             failurePoints: 1))
         .toList();
-    this._taskListStore.setTaskList(allTasks);
+    this._taskListStore.setTaskListEntities(allTasks);
   }
 
   addTask(TaskEntity task) {
